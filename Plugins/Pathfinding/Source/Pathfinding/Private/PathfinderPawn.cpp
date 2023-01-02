@@ -37,16 +37,7 @@ void APathfinderPawn::BeginPlay()
 void APathfinderPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	/*
-	if (PathUpdateTime > 0.f)
-	{
-		PathUpdateTimeLast -= DeltaTime;
-		if (PathUpdateTimeLast <= 0.f)
-		{
-			PathUpdateTimeLast = PathUpdateTime;
-			FindPathToTargetWorldActor();
-		}
-	}*/
+#if WITH_EDITOR
 	if (DebugDrawLastPath)
 	{
 		if (Pathfinder && Pathfinder->GetHasFoundPath())
@@ -54,6 +45,8 @@ void APathfinderPawn::Tick(float DeltaTime)
 			UPathfindingFunctionLibrary::DrawDebugPath(GetWorld(), Pathfinder->Path, DebugPathColor, false, -1.f, 0U, DebugPathLineThickness);
 		}
 	}
+#endif
+
 	if (NodeGrid)
 	{
 		UPathfindingFunctionLibrary::DrawCurrentNodePosition(GetWorld(), NodeGrid->GetGrid(), (NodeGrid->NodeSize) + 10.f, GetActorLocation(), FColor::Green);

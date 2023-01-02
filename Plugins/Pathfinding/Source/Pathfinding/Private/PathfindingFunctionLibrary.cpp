@@ -4,7 +4,9 @@
 #include "PathfindingFunctionLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Pathfinding/Public/PriorityQueue.h"
+#if WITH_EDITOR
 #include "DrawDebugHelpers.h"
+#endif
 #include "Runtime/Engine/Classes/Kismet/KismetSystemLibrary.h"
 
 UNodeGrid* UPathfindingFunctionLibrary::GeneratePathNodeGrid(int SizeX, int SizeY, int SizeZ, FVector Center, int Spacing)
@@ -594,14 +596,6 @@ FQuat UPathfindingFunctionLibrary::CalculateLookRotation(const FVector LookAtLoc
     quaternion.Z = 0.5f * num5;
     quaternion.W = (m01 - m10) * num2;
     return quaternion;
-    /*
-    FVector newForward = ToPosition - From;
-    newForward.Normalize();
-    FVector newRight = FVector::CrossProduct(ToPosition, UpDirection);
-    FVector newUp = FVector::CrossProduct(newRight, newForward);
-    FVector::Rotatio
-    return (FTransform(newForward, newRight, UpDirection, From)).Rotator();
-    */
 }
 
 FRotator UPathfindingFunctionLibrary::CalculateLookRotationRotator(const FVector LookAtLocation, FVector UpDirection)
