@@ -4,14 +4,14 @@
 #include "PathfindingFunctionLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Pathfinding/Public/PriorityQueue.h"
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
 #include "DrawDebugHelpers.h"
 #endif
 #include "Runtime/Engine/Classes/Kismet/KismetSystemLibrary.h"
 
 UNodeGrid* UPathfindingFunctionLibrary::GeneratePathNodeGrid(int SizeX, int SizeY, int SizeZ, FVector Center, int Spacing)
 {
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
     if (SizeX % 2 != 0) UE_LOG(LogTemp, Warning, TEXT("Can't generate or update grid. Size must be an even number. Current x: %d"), SizeX);
     if (SizeY % 2 != 0) UE_LOG(LogTemp, Warning, TEXT("Can't generate or update grid. Size must be an even number. Current y: %d"), SizeY);
     if (SizeZ % 2 != 0) UE_LOG(LogTemp, Warning, TEXT("Can't generate or update grid. Size must be an even number. Current z: %d"), SizeZ);
@@ -74,7 +74,7 @@ void UPathfindingFunctionLibrary::UpdateGrid(UNodeGrid* Grid, FVector Center, in
     int HalfX = XLength / 2;
     int HalfY = YLength / 2;
     int HalfZ = ZLength / 2;
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
     int Nodes = 0;
 #endif
     for (int X = -HalfX; X < HalfX; X++)
@@ -102,13 +102,13 @@ void UPathfindingFunctionLibrary::UpdateGrid(UNodeGrid* Grid, FVector Center, in
                     Node->EmptyNeighbours();
                 }
                 Node->SetNodePosition(position);
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
                 Nodes++;
 #endif
             }
         }
     }
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
     UE_LOG(LogTemp, Warning, TEXT("Grid generated. Nodes generated: %d"), Nodes);
 #endif
 }
@@ -612,7 +612,7 @@ FVector UPathfindingFunctionLibrary::GetRelativeAngles(const FVector Angle)
     return Relative;
 }
 
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
 void UPathfindingFunctionLibrary::DrawDebugNodes(UWorld* World, UNodeGrid* Grid, float NodeSize, FColor const& Color, bool PersistentLines, float LifeTime, uint8 DepthPriority, float Thickness)
 {
     int LengthX = Grid->SizeX;

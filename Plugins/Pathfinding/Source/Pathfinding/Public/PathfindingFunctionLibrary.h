@@ -72,7 +72,7 @@ public:
 	/// <returns></returns>
 	/// 
 	static FVector GetRelativeAngles(const FVector Angle);
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
 	/// <summary>
 	/// Draw ALL nodes in the grid.
 	/// Warning, might completely slow down the editor with alot of nodes.

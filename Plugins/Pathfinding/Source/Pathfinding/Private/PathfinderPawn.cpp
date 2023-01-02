@@ -37,7 +37,7 @@ void APathfinderPawn::BeginPlay()
 void APathfinderPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
 	if (DebugDrawLastPath)
 	{
 		if (Pathfinder && Pathfinder->GetHasFoundPath())
@@ -45,12 +45,11 @@ void APathfinderPawn::Tick(float DeltaTime)
 			UPathfindingFunctionLibrary::DrawDebugPath(GetWorld(), Pathfinder->Path, DebugPathColor, false, -1.f, 0U, DebugPathLineThickness);
 		}
 	}
-#endif
-
 	if (NodeGrid)
 	{
 		UPathfindingFunctionLibrary::DrawCurrentNodePosition(GetWorld(), NodeGrid->GetGrid(), (NodeGrid->NodeSize) + 10.f, GetActorLocation(), FColor::Green);
 	}
+#endif
 }
 
 // Called to bind functionality to input

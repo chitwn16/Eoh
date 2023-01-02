@@ -96,7 +96,6 @@ void UPidRotationController::ExecutePid(float DeltaTime)
 	// run the controller
 	PidLookDirection->Cycle(CurrentVelocity, InputVelocity, DeltaTime);
 	Body->AddTorqueInRadians(Body->GetComponentTransform().TransformVector(InputVelocity * PidLookDirection->Kp), FName(EName::None), true);
-	// Unity: body.AddRelativeTorque(pid.output * Time.fixedDeltaTime, ForceMode.Acceleration);
 	InputVelocity = FVector::ZeroVector;
 }
 
@@ -111,7 +110,6 @@ void UPidRotationController::StabilizeBodyMoveRotation(float DeltaTime)
 	);
 
 	Body->SetAllPhysicsRotation(NewRotation);
-	// Unity: body.MoveRotation(rotation);
 }
 
 float UPidRotationController::GetPitchInput()
