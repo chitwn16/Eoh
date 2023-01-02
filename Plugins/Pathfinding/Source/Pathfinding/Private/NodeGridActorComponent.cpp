@@ -27,7 +27,7 @@ void UNodeGridActorComponent::BeginPlay()
 void UNodeGridActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-#if WITH_EDITOR
+#if !UE_BUILD_SHIPPING
 	if (DebugDrawGrid)
 	{
 		UPathfindingFunctionLibrary::DrawDebugNodes(GetWorld(), Grid, NodeSize, FColor::Black);
